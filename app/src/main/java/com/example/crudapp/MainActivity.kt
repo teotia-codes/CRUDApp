@@ -1,6 +1,7 @@
 package com.example.crudapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.crudapp.ui.theme.CRUDAppTheme
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,25 +25,20 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val user: MutableMap<String,Any> = HashMap()
+                    user["first"] = "Priyanshu"
+                    user["last"] = "Teotia"
+                    user["born"] = "2 Nov 2002"
+                    FirebaseFirestore.getInstance().collection("users")
+                        .add(user)
+                        .addOnSuccessListener { documentReference->
+                            Log.d("TAQ", "DocumentSnapshot added with ID: " + documentReference.id)
+                        }
+                        .addOnFailureListener { e->
+                            Log.w("TAG", "Error adding document",e)
+                        }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CRUDAppTheme {
-        Greeting("Android")
     }
 }
