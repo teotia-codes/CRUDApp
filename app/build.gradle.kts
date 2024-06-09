@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id ("kotlin-kapt")
-    id ("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -79,7 +79,7 @@ dependencies {
     //dagger hilt
     implementation ("com.google.dagger:hilt-android:2.44")
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
-    kapt( "com.google.dagger:hilt-compiler:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     //hilt viewmodel
     implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
@@ -103,7 +103,5 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
     // LiveData
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
-
-
 
 }

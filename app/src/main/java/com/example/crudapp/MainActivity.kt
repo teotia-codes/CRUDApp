@@ -11,10 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.crudapp.firebaseDB.ui.RealtimeScreen
 import com.example.crudapp.ui.theme.CRUDAppTheme
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +28,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val user: MutableMap<String,Any> = HashMap()
-                    user["first"] = "Priyanshu"
-                    user["last"] = "Teotia"
-                    user["born"] = "2 Nov 2002"
-                    FirebaseFirestore.getInstance().collection("users")
-                        .add(user)
-                        .addOnSuccessListener { documentReference->
-                            Log.d("TAQ", "DocumentSnapshot added with ID: " + documentReference.id)
-                        }
-                        .addOnFailureListener { e->
-                            Log.w("TAG", "Error adding document",e)
-                        }
+                 RealtimeScreen()
                 }
             }
         }
